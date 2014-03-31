@@ -1,8 +1,8 @@
 window.Project = Backbone.Model.extend({
 
-    urlRoot: "projects",
+    urlRoot: "project",
 
-    idAttribute: "_id"
+    idAttribute: "slug"
 });
 
 window.ProjectCollection = Backbone.Collection.extend({

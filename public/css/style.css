@@ -1,7 +1,23 @@
 body {
-  padding-top: 70px;
   padding-bottom: 30px;
   margin-bottom: 60px;
+}
+
+h1 {
+  font-family: 'Dosis', sans-serif;
+}
+
+.navbar {
+	font-family: 'Dosis', sans-serif;
+	text-transform: uppercase;
+}
+
+.navbar li {
+    font-weight: 300;
+}
+
+.navbar-brand {
+	font-weight: 600;
 }
 
 .theme-dropdown .dropdown-menu {

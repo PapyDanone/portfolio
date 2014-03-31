@@ -13,7 +13,7 @@ app.configure(function () {
 var server = require('http').Server(app);
 
 app.get('/projects', projects.findAll);
-app.get('/project/:id', projects.findById);
+app.get('/project/:slug', projects.findBySlug);
 
 server.listen(app.get('port'), function () {
     console.log("Express server listening on port " + app.get('port'));

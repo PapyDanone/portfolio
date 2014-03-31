@@ -5,7 +5,7 @@ var Server = mongo.Server,
     BSON = mongo.BSONPure;
 
 var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('nodechat', server, {safe: true});
+db = new Db('portfolio', server, {safe: true});
 
 db.open(function(err, db) {
     if(!err) {
@@ -26,11 +26,11 @@ exports.findAll = function(req, res) {
     });
 };
 
-exports.findById = function(req, res) {
-    var id = req.params.id;
-    console.log('Retrieving project: ' + id);
+exports.findBySlug = function(req, res) {
+    var slug = req.params.slug;
+    console.log('Retrieving project: ' + slug);
     db.collection('projects', function(err, collection) {
-        collection.findOne({'_id':new BSON.ObjectID(id)}, function(err, item) {
+        collection.findOne({'slug': slug}, function(err, item) {
             res.send(item);
         });
     });

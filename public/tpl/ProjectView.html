@@ -1,14 +1,6 @@
-<div class="panel panel-default">
-  <div class="panel-body">
-    <%= message %>
-  </div>
-  <div class="panel-footer">
-  <%= _.template.formatdate(date) %> <%= author %>
-    <div class="pull-right">
-	   <button type="button" class="btn btn-xs btn-primary edit">Edit</button> 
-	   <button type="button" class="btn btn-xs btn-danger delete">Delete</button>
-    </div>
-  </div>
-</div>
+<h1 id="overview" class="page-header"><%= title %></h1>
+<img src="img/<%= images[0] %>" alt="<%= title %>">
+<p><%= url %></p>
+<a href="#projects" class="btn btn-default back" role="button">Back</a>
 
 

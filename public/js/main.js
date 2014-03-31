@@ -3,12 +3,12 @@ var AppRouter = Backbone.Router.extend({
     routes: {
         ""              : "home",
         "projects"	    : "list",
-        "project/:id"	: "detail"
+        "project/:slug"	: "detail"
     },
 
     initialize: function () {
     	this.headerView = new HeaderView();
-        $('body').append(this.headerView.el);
+        $('body').prepend(this.headerView.el);
     },
     
     home: function () {
@@ -24,13 +24,9 @@ var AppRouter = Backbone.Router.extend({
         
         projects.fetch({
         	success: function() {
-        		
-        		var msgView = new ProjectsView({
-        			collection: projects, 
-        			socket: window.socket
-        		});
-        		
-        		$("#content").html(msgView.el);
+        		$("#content").html(new ProjectsView({
+        			collection: projects
+        		}).el);
         	},
         	error: function() {
         		console.debug('error while fetching projects');
@@ -38,8 +34,11 @@ var AppRouter = Backbone.Router.extend({
         });
     },
     
-    detail: function (id) {
-        var project = new Project({_id: id});
+    detail: function (slug) {
+    	
+    	this.headerView.selectMenuItem('projects');
+    	
+        var project = new Project({ slug: slug});
         project.fetch({success: function(){
             $("#content").html(new ProjectView({model: project}).el);
         }});
@@ -48,7 +47,7 @@ var AppRouter = Backbone.Router.extend({
 
 });
 
-utils.loadTemplate(['HomeView', 'HeaderView', 'ProjectView'], function() {
+utils.loadTemplate(['HomeView', 'HeaderView', 'ProjectView', 'ProjectListItemView'], function() {
     app = new AppRouter();
     Backbone.history.start();
 });
