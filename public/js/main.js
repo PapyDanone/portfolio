@@ -25,8 +25,11 @@ var AppRouter = Backbone.Router.extend({
         projects.fetch({
         	success: function() {
         		$("#content").html(new ProjectsView({
-        			collection: projects
+        			collection: projects,
+        			vent: vent
         		}).el);
+        		
+        		$("#content").append(new FiltersView({ vent: vent }).el);
         	},
         	error: function() {
         		console.debug('error while fetching projects');
@@ -47,7 +50,9 @@ var AppRouter = Backbone.Router.extend({
 
 });
 
-utils.loadTemplate(['HomeView', 'HeaderView', 'ProjectView', 'ProjectListItemView'], function() {
+utils.loadTemplate(['HomeView', 'HeaderView', 'ProjectView', 'ProjectListItemView', 'FiltersView'], function() {
     app = new AppRouter();
     Backbone.history.start();
 });
+
+var vent = _.extend({}, Backbone.Events);

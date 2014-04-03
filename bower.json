@@ -1,0 +1,23 @@
+{
+  "name": "portfolio 2014",
+  "version": "0.0.1",
+  "homepage": "https://github.com/PapyDanone/portfolio",
+  "authors": [
+    "PapyDanone <j.guilbot@gmail.com>"
+  ],
+  "description": "2014 backbone.js portfolio",
+  "main": "/public/css/style.css",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+      "jquery": "~1.11.0",
+      "bootstrap": "*",
+      "backbone": "*",
+      "less.js": "~1.7.0"
+  }
+}

@@ -1,19 +1,37 @@
 body {
+  padding-top: 70px;
   padding-bottom: 30px;
-  margin-bottom: 60px;
 }
 
 h1 {
   font-family: 'Dosis', sans-serif;
 }
 
+a {
+	color: #fff;
+}
+
 .navbar {
 	font-family: 'Dosis', sans-serif;
 	text-transform: uppercase;
+	min-height: 45px;
+	margin-bottom: 20px;
+	border: none;
+	background-color: #444;
+    height: 45px;
+}
+
+.navbar-brand {
+	height: 45px;
+	padding: 13px;
 }
 
 .navbar li {
     font-weight: 300;
+}
+
+.nav>li>a {
+	line-height: 15px;
 }
 
 .navbar-brand {
@@ -28,4 +46,16 @@ h1 {
 
 .theme-showcase > p > .btn {
   margin: 5px 0;
+}
+
+#content div.hide {
+	display: none;
+}
+
+.label {
+	cursor: pointer;
+}
+
+.thumbnail img { 
+	max-height:169px;  
 }
