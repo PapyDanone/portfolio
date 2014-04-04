@@ -1,16 +1,14 @@
-<div class="thumbnail">
-  <a href="#project/<%= slug %>">
-    <img src="img/<%= images[0] %>" alt="<%= title %>">
-  </a>
-  <div class="caption">
-    <h3><%= title %></h3>
-    <p><%= url %></p>
-    <p><% _.each(techs, function (tech) { %>
-        <span class="label label-default"><%= tech %></span>
-    <% }); %></p>
-    <p><a href="<%= url %>" class="btn btn-primary" role="button">Website</a> 
-    <a href="#project/<%= slug %>" class="btn btn-default" role="button">Details</a></p>
-  </div>
+<a href="#project/<%= slug %>">
+  <img src="img/<%= images[0] %>" alt="<%= title %>">
+</a>
+<div class="caption">
+  <h3><%= title %></h3>
+  <p><%= url %></p>
+  <p><% _.each(techs, function (tech) { %>
+      <span class="label label-default"><%= tech %></span>
+  <% }); %></p>
+  <p><a href="<%= url %>" class="btn btn-primary" role="button">Website</a> 
+  <a href="#project/<%= slug %>" class="btn btn-default" role="button">Details</a></p>
 </div>
 
 

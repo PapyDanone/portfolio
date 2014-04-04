@@ -2,7 +2,7 @@ var ProjectsView = Backbone.View.extend({
 	
 	tagName: "div",
 	
-	className: "row",
+	className: "row projects",
 
     initialize: function (options) {
     	this.vent = options.vent;
@@ -15,11 +15,16 @@ var ProjectsView = Backbone.View.extend({
     	
     	var view = new ProjectListItemView({model: project, vent: this.vent});
     	
-    	$(this.el).append(view.el);
+    	$('.project-list', this.el).append(view.el);
     },
 
     render: function () {
     	console.debug('rendering projects'); 
+    	
+    	$(this.el).html(this.template());
+        $(this.el).append(new FiltersView({ vent: this.vent }).el);
+        $(this.el).append('<div class="row project-list"></div>');
+    	
     	var self= this;
     	
     	_.each(this.collection.models, function (project) {
@@ -34,7 +39,7 @@ var ProjectListItemView = Backbone.View.extend({
 
     tagName: "div",
     
-    className: "col-sm-6 col-md-3",
+    className: "thumbnail col-sm-6 col-md-4 project-item",
     
     events: {
     },
@@ -51,14 +56,14 @@ var ProjectListItemView = Backbone.View.extend({
     	var tech = event.target.innerHTML;
     	
     	if (tech == 'All') {
-    		$(this.el).fadeIn('fast');
+    		$(this.el).removeClass('hidden');
     		return;
     	}
     	
     	if (!this.model.hasTech(tech)) {
-    		$(this.el).fadeOut('fast');
+    		$(this.el).addClass('hidden');
     	} else {
-    		$(this.el).fadeIn('fast');
+    		$(this.el).removeClass('hidden');
     	}
     },
 
@@ -73,17 +78,13 @@ var ProjectView = Backbone.View.extend({
 
     tagName: "div",
     
-    className: "row",
+    className: "row project",
     
     events: {
     },
 
     initialize: function (options) {
         this.render();
-    },
-    
-    hide: function () {
-    	$(this.el).hide();
     },
 
     render: function () {
@@ -97,10 +98,10 @@ var FiltersView = Backbone.View.extend({
 
     tagName: "div",
     
-    className: "row",
+    className: "container text-center filters",
     
     events: {
-    	"click .label": "filter"
+    	"click li a": "filter"
     },
 
     initialize: function (options) {
@@ -109,10 +110,11 @@ var FiltersView = Backbone.View.extend({
     },
     
     filter: function (event) {
-    	$('.label').removeClass('label-primary').addClass('label-default');
-    	$(event.target).removeClass('label-default');
-    	$(event.target).addClass('label-primary');
+    	$('li').removeClass('active');
+    	$(event.target).parent().addClass('active');
     	this.vent.trigger("filter", event);
+
+        return false;
     },
 
     render: function () {
