@@ -6,9 +6,9 @@
 @orange: #D26C22;
 @navbar-text-color: #fff;
 
-@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
-@font-family-titles:      'Dosis', sans-serif;
-@font-family-base:        @font-family-sans-serif;
+@font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-titles: 'Dosis', sans-serif;
+@font-family-base: @font-family-sans-serif;
 
 @navbar-height: 45px;
 @navbar-default-link-color: @navbar-text-color;
@@ -22,6 +22,9 @@
 body {
   padding-top: 55px;
   padding-bottom: 30px;
+  background-color: #F6F6F6;
+  color: #666;
+  font-size: 16px;
 }
 
 h1 {
@@ -29,7 +32,7 @@ h1 {
   color: @orange;
   text-transform: uppercase;
   border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   margin-bottom: 35px;
   font-size: 45px;
   line-height: 45px;
@@ -40,19 +43,39 @@ h1 {
 }
 
 .project-list {
-  margin: 20px 0;
+    margin: 20px 0;
+    
+    .project-item {
+        
+      background-color: #fff;
+      margin: 20px;
+      max-width: 360px;
+      padding: 0 0 20px 0;
+      .text-center();
+      
+      h3 {
+          font-family: @font-family-titles;
+          font-size: 19px;
+          text-transform: uppercase;
+      }
+      
+      img { 
+        .img-responsive();
+      }
+      
+      .url {
+          color: @orange;
+      }
+    }
 }
 
-.thumbnail img { 
-  max-height:169px;  
+.project {
+    code {
+      width: 300px;
+      text-align: left;
+    }
 }
 
-.thumbnail {
-  -webkit-transition: all 300ms !important;
-  -moz-transition: all 300ms !important;
-  -o-transition: all 300ms !important;
-  transition: all 300ms !important;
-}
 
 // Tweaked default navbar
 .navbar-default {

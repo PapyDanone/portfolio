@@ -6,29 +6,48 @@ var ProjectsView = Backbone.View.extend({
 
     initialize: function (options) {
     	this.vent = options.vent;
-    	_.bindAll(this, 'addProjectView');
+    	_.bindAll(this, 'addProjectView', 'filter');
     	options.vent.bind('filter', this.filter);
         this.render();
     },
     
-    addProjectView: function(project, scroll) {
+    addProjectView: function(project) {
     	
     	var view = new ProjectListItemView({model: project, vent: this.vent});
     	
     	$('.project-list', this.el).append(view.el);
     },
 
+    filter: function (event) {
+
+        var tech = $(event.target).attr('data-filter');
+
+        $('.project-list', this.el).isotope({
+            itemSelector: 'article',
+            filter: function() {
+
+                if (tech == '*') {
+                    return true;
+                }
+
+	            return $(this).attr('data-tech').indexOf(tech) >= 0;
+            }
+        });
+
+        return false;
+    },
+
     render: function () {
-    	console.debug('rendering projects'); 
     	
-    	$(this.el).html(this.template());
-        $(this.el).append(new FiltersView({ vent: this.vent }).el);
-        $(this.el).append('<div class="row project-list"></div>');
+    	$(this.el)
+            .html(this.template())
+            .append(new FiltersView({ vent: this.vent }).el)
+            .append('<div class="row project-list"></div>');
     	
-    	var self= this;
+    	var self = this;
     	
     	_.each(this.collection.models, function (project) {
-    		self.addProjectView(project, false);
+    		self.addProjectView(project);
         });
 
         return this;
@@ -37,37 +56,22 @@ var ProjectsView = Backbone.View.extend({
 
 var ProjectListItemView = Backbone.View.extend({
 
-    tagName: "div",
+    tagName: "article",
     
-    className: "thumbnail col-sm-6 col-md-4 project-item",
+    className: "col-sm-6 col-md-4 project-item",
     
     events: {
     },
 
     initialize: function (options) {
     	this.vent = options.vent;
-    	_.bindAll(this, 'filter');
-    	this.vent.bind('filter', this.filter);
         this.render();
-    },
-    
-    filter: function (event) {
-    	
-    	var tech = event.target.innerHTML;
-    	
-    	if (tech == 'All') {
-    		$(this.el).removeClass('hidden');
-    		return;
-    	}
-    	
-    	if (!this.model.hasTech(tech)) {
-    		$(this.el).addClass('hidden');
-    	} else {
-    		$(this.el).removeClass('hidden');
-    	}
     },
 
     render: function () {
+
+        $(this.el).attr('data-tech', this.model.get('techs').join(', '));
+        
         $(this.el).html(this.template(this.model.toJSON()));
         return this;
     }
@@ -78,7 +82,7 @@ var ProjectView = Backbone.View.extend({
 
     tagName: "div",
     
-    className: "row project",
+    className: "row project text-center",
     
     events: {
     },
@@ -89,6 +93,10 @@ var ProjectView = Backbone.View.extend({
 
     render: function () {
         $(this.el).html(this.template(this.model.toJSON()));
+        
+        // @see http://stackoverflow.com/questions/9145680/calling-javascript-on-rendering-views-in-backbone-js-post-render-callback
+        _.defer(prettyPrint); 
+
         return this;
     }
 
