@@ -82,7 +82,7 @@ var ProjectView = Backbone.View.extend({
 
     tagName: "div",
     
-    className: "row project text-center",
+    className: "row project",
     
     events: {
     },

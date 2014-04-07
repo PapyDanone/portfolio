@@ -8,7 +8,10 @@ var AppRouter = Backbone.Router.extend({
 
     initialize: function () {
     	this.headerView = new HeaderView();
-        $('body').prepend(this.headerView.el);
+
+        $('body')
+            .prepend(this.headerView.el)
+            .append(new FooterView().el);
     },
     
     home: function () {
@@ -48,7 +51,8 @@ var AppRouter = Backbone.Router.extend({
 
 });
 
-utils.loadTemplate(['HomeView', 'HeaderView', 'ProjectsView', 'ProjectView', 'ProjectListItemView', 'FiltersView'], function() {
+utils.loadTemplate(['HomeView', 'HeaderView', 'ProjectsView', 'ProjectView', 'ProjectListItemView', 
+    'FooterView','FiltersView'], function() {
     app = new AppRouter();
     Backbone.history.start();
 });
