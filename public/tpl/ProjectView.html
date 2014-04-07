@@ -1,6 +1,51 @@
-<div class="col-md-8 col-xs-8">
-	<h1 id="overview" class="page-header"><%= title %></h1>
+<div class="col-md-12 col-xs-12">
+	<h1 id="overview"><%= title %></h1>
+	<p class="blurb">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt nibh ipsum, vitae vulputate turpis eleifend vel. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque consectetur quam dui, eget auctor erat lobortis et. Mauris vitae porttitor est. Nunc convallis viverra porta. Nunc lobortis est sem, at ornare justo fermentum sit amet. Phasellus ultricies commodo ante eget feugiat. Vestibulum euismod a lectus ut sodales. Quisque rhoncus mattis risus, consequat, nibh ac tempus pharetra, enim mi luctus neque.</p>
 	<img src="img/<%= images[0] %>" alt="<%= title %>" class="img-responsive">
+
+    <code>
+	    <pre class="prettyprint">
+var ProjectsView = Backbone.View.extend({
+	
+	tagName: "div",
+	
+	className: "row projects",
+
+    initialize: function (options) {
+    	this.vent = options.vent;
+    	_.bindAll(this, 'addProjectView', 'filter');
+    	options.vent.bind('filter', this.filter);
+        this.render();
+    },
+    
+    addProjectView: function(project) {
+    	
+    	var view = new ProjectListItemView({model: project, vent: this.vent});
+    	
+    	$('.project-list', this.el).append(view.el);
+    },
+
+    filter: function (event) {
+
+        var tech = $(event.target).attr('data-filter');
+
+        $('.project-list', this.el).isotope({
+            itemSelector: 'article',
+            filter: function() {
+
+                if (tech == '*') {
+                    return true;
+                }
+
+	            return $(this).attr('data-tech').indexOf(tech) >= 0;
+            }
+        });
+
+        return false;
+    }
+	    </pre>
+    </code>
+
 	<p><%= url %></p>
 	<a href="#projects" class="btn btn-default back" role="button">Back</a>
 	<a href="#projects" class="btn btn-default prev" role="button">Prev</a>
