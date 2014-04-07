@@ -1,55 +1,99 @@
 <div class="col-md-12 col-xs-12">
 	<h1 id="overview"><%= title %></h1>
-	<p class="blurb">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt nibh ipsum, vitae vulputate turpis eleifend vel. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque consectetur quam dui, eget auctor erat lobortis et. Mauris vitae porttitor est. Nunc convallis viverra porta. Nunc lobortis est sem, at ornare justo fermentum sit amet. Phasellus ultricies commodo ante eget feugiat. Vestibulum euismod a lectus ut sodales. Quisque rhoncus mattis risus, consequat, nibh ac tempus pharetra, enim mi luctus neque.</p>
-	<img src="img/<%= images[0] %>" alt="<%= title %>" class="img-responsive">
+	<p class="blurb">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt nibh ipsum, vitae vulputate turpis eleifend vel. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque consectetur quam dui, eget auctor erat lobortis et. Mauris vitae porttitor est. Nunc convallis viverra porta. Nunc lobortis est sem, at ornare justo fermentum sit amet. Phasellus ultricies commodo ante eget feugiat.</p>
 
-    <code>
-	    <pre class="prettyprint">
-var ProjectsView = Backbone.View.extend({
-	
-	tagName: "div",
-	
-	className: "row projects",
+    <div id="carousel-example-generic" class="carousel slide row feature" data-ride="carousel" data-interval="false">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+      </ol>
 
-    initialize: function (options) {
-    	this.vent = options.vent;
-    	_.bindAll(this, 'addProjectView', 'filter');
-    	options.vent.bind('filter', this.filter);
-        this.render();
-    },
-    
-    addProjectView: function(project) {
-    	
-    	var view = new ProjectListItemView({model: project, vent: this.vent});
-    	
-    	$('.project-list', this.el).append(view.el);
-    },
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner">
+        <div class="item">
+             <iframe width="1170" height="658" src="//www.youtube.com/embed/5guMumPFBag?rel=0" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="item">
+          <img src="img/<%= images[0] %>">
+          <div class="carousel-caption">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt nibh ipsum, vitae vulputate turpis eleifend vel.</p>
+          </div>
+        </div>
+        <div class="item active">
+            <pre class="prettyprint">
+    var ProjectsView = Backbone.View.extend({
+        
+        tagName: "div",
+        
+        className: 1094,
 
-    filter: function (event) {
+        initialize: function (options) {
+            this.vent = options.vent;
+            _.bindAll(this, 'addProjectView', 'filter');
+            options.vent.bind('filter', this.filter);
+            this.render();
+        },
+        
+        addProjectView: function(project) {
+            
+            var view = new ProjectListItemView({model: project, vent: this.vent});
+            
+            $('.project-list', this.el).append(view.el);
+        },
 
-        var tech = $(event.target).attr('data-filter');
+        filter: function (event) {
 
-        $('.project-list', this.el).isotope({
-            itemSelector: 'article',
-            filter: function() {
+            var tech = $(event.target).attr('data-filter');
 
-                if (tech == '*') {
-                    return true;
+            $('.project-list', this.el).isotope({
+                itemSelector: 'article',
+                filter: function() {
+
+                    if (tech == '*') {
+                        return true;
+                    }
+
+                    return $(this).attr('data-tech').indexOf(tech) >= 0;
                 }
+            });
 
-	            return $(this).attr('data-tech').indexOf(tech) >= 0;
-            }
-        });
+            return false;
+        }
+            </pre>
+          </div>
+      </div>
 
-        return false;
-    }
-	    </pre>
-    </code>
+      <!-- Controls -->
+      <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
+    </div>
 
-	<p><%= url %></p>
+    <div class="row feature">
+        <div class="col-xs-6 col-md-3">
+           <img src="img/<%= images[0] %>" alt="<%= title %>" class="img-responsive">
+        </div>
+
+         <div class="col-xs-6 col-md-3 info">
+               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt nibh ipsum, vitae vulputate turpis eleifend vel. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p> 
+         </div>
+
+         <div class="col-xs-6 col-md-3">
+           <img src="img/<%= images[0] %>" alt="<%= title %>" class="img-responsive">
+        </div>
+
+         <div class="col-xs-6 col-md-3 info">
+               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt nibh ipsum, vitae vulputate turpis eleifend vel. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p> 
+         </div>
+    </div>
+
+	<a class="url"><%= url %></a>
 	<a href="#projects" class="btn btn-default back" role="button">Back</a>
-	<a href="#projects" class="btn btn-default prev" role="button">Prev</a>
-	<a href="#projects" class="btn btn-default next" role="button">Next</a>
 </div>
 
 
